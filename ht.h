@@ -468,7 +468,7 @@ void HashTable<K,V,Prober,Hash,KEqual>::resize()
     for(size_t i = 0; i< oldTable.size(); i++){
         if(oldTable[i] != nullptr){
             if(!oldTable[i]->deleted){
-                HASH_INDEX_T idx = probe(oldTable[i]->item);
+                HASH_INDEX_T idx = probe(oldTable[i]->item.first);
                 if(idx != npos) {
                     table_[idx] = new HashItem(oldTable[i]->item);
                     numItems_++; 
