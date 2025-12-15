@@ -304,6 +304,7 @@ HashTable<K,V,Prober,Hash,KEqual>::HashTable(
        :  hash_(hash), kequal_(kequal), prober_(prober)
 {
     // Initialize any other data members as necessary
+    alpha_ = resizeAlpha;
     mIndex_ = 0; 
     numItems_ = 0; 
     numDeleted_ = 0; 
