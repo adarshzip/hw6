@@ -452,10 +452,11 @@ void HashTable<K,V,Prober,Hash,KEqual>::resize()
 {
     std::vector<HashItem*> oldTable = table_; // save old data
 
-    if (mIndex_ < 27){ // advance to next size
-        mIndex_++;
+    if (mIndex_>= 27){
+        throw std::logic_error("No more capacity");
     }
-    
+
+    mIndex_++;
     HASH_INDEX_T newSize = CAPACITIES[mIndex_]; 
 
     table_.clear();
