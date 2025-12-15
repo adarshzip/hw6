@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include <stdexcept>
 
 typedef size_t HASH_INDEX_T;
 
@@ -450,11 +451,11 @@ typename HashTable<K,V,Prober,Hash,KEqual>::HashItem* HashTable<K,V,Prober,Hash,
 template<typename K, typename V, typename Prober, typename Hash, typename KEqual>
 void HashTable<K,V,Prober,Hash,KEqual>::resize()
 {
-    std::vector<HashItem*> oldTable = table_; // save old data
-
     if (mIndex_>= 27){
         throw std::logic_error("No more capacity");
     }
+
+    std::vector<HashItem*> oldTable = table_; // save old data
 
     mIndex_++;
     HASH_INDEX_T newSize = CAPACITIES[mIndex_]; 
@@ -487,9 +488,9 @@ HASH_INDEX_T HashTable<K,V,Prober,Hash,KEqual>::probe(const KeyType& key) const
     prober_.init(h, CAPACITIES[mIndex_], key);
 
     HASH_INDEX_T loc = prober_.next(); 
-    totalProbes_++;
     while(Prober::npos != loc)
     {
+        totalProbes_++;
         if(nullptr == table_[loc] ) {
             return loc;
         }
