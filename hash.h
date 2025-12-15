@@ -68,7 +68,7 @@ struct MyStringHash {
             return letter - 'A'; 
         }
 
-        return -1; // if a fake character is tested
+        return -1; // fake character return value
     }
 
     // Code to generate the random R values
