@@ -20,8 +20,37 @@ struct MyStringHash {
     HASH_INDEX_T operator()(const std::string& k) const
     {
         // Add your code here
+        unsigned long long w[5] = {0, 0, 0, 0, 0}; 
 
+        int len = k.length(); 
+        int wIndex = 4; 
 
+        for (int i = len - 1; i >= 0; i -=6){
+            if (wIndex < 0){
+                break; // ran out of buckets
+            }
+
+            int start = i - 5;  // start of chunk is either 6 back or 0
+            if (start < 0){
+                start = 0; 
+            }
+
+            unsigned long long chunkVal = 0; 
+            for (int j = start; j <=i; j++){ // calc base 36 value for the chunk
+                chunkVal = chunkVal * 36 + letterDigitToNumber(k[j]); 
+            }
+
+            w[wIndex] = chunkVal; 
+
+            wIndex--;
+        }
+
+        unsigned long long retVal = 0; 
+        for (int i = 0; i < 5; i++){ // r values thing from instructions
+            retVal += (rValues[i] * w[i]);
+        }
+
+        return retVal; 
     }
 
     // A likely helper function is to convert a-z,0-9 to an integral value 0-35
