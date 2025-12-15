@@ -461,7 +461,6 @@ void HashTable<K,V,Prober,Hash,KEqual>::resize()
     table_.clear();
     table_.resize(newSize, nullptr);
 
-    size_t oldNumItems = numItems_; 
     numItems_ = 0; 
     numDeleted_ = 0; 
 
