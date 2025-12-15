@@ -350,7 +350,7 @@ void HashTable<K,V,Prober,Hash,KEqual>::insert(const ItemType& p)
 
     HASH_INDEX_T idx = probe(p.first);
     if(idx == npos) { // if the resize fails ig from instructions
-        throw std::logic_error("table full")
+        throw std::logic_error("table full");
     }
 
     if(table_[idx] == nullptr) { // empty spot
@@ -453,7 +453,7 @@ void HashTable<K,V,Prober,Hash,KEqual>::resize()
     std::vector<HashItem*> oldTable = table_; // save old data
 
     if (mIndex_ < 27){ // advance to next size
-        mIndex_++
+        mIndex_++;
     }
     
     HASH_INDEX_T newSize = CAPACITIES[mIndex_]; 
